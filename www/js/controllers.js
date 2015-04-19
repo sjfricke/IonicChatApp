@@ -5,13 +5,16 @@ angular.module('starter.controllers', [])
     $scope.mapOptions = {};
     
       $scope.init = function() {
+          //default location
         var myLatlng = new google.maps.LatLng(43.07493,-89.381388);
 
         var mapOptions = {
+            //default settings
           center: myLatlng,
           zoom: 16,
           mapTypeId: google.maps.MapTypeId.ROADMAP
         };
+          //getting default location
         var map = new google.maps.Map(document.getElementById("map"),
             mapOptions);
 
@@ -49,6 +52,7 @@ angular.module('starter.controllers', [])
         });
 $scope.posOptions = {timeout: 10000, enableHighAccuracy: true};
         
+        //grab current location
         navigator.geolocation.getCurrentPosition(function(pos) {
             console.log(pos.coords.latitude);
             console.log(pos.coords.longitude);
@@ -114,10 +118,6 @@ $scope.posOptions = {timeout: 10000, enableHighAccuracy: true};
     };
     
   
-})
-
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-  $scope.chat = Chats.get($stateParams.chatId);
 })
 
 .controller('AccountCtrl', function($scope, $firebaseArray) {
