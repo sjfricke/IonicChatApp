@@ -26,7 +26,7 @@ angular.module('starter.controllers', [])
         var marker = new google.maps.Marker({
           position: myLatlng,
           map: map,
-          title: 'Uluru (Ayers Rock)'
+          title: 'Starting Point'
         });
 
         google.maps.event.addListener(marker, 'click', function() {
@@ -54,7 +54,26 @@ angular.module('starter.controllers', [])
             console.log($scope.mapOptions);
           $scope.map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
          $scope.map.setZoom(13);
-          $ionicLoading. hide();
+            $scope.newLatlng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+            
+            $scope.marker = new google.maps.Marker({
+          position: $scope.newLatlng,
+          map: $scope.map,
+          title: 'new point'
+        })
+            
+               $scope.contentString = "<div><a ng-click='clickTest()'>Current Location</a></div>";
+        $scope.compiled = $compile($scope.contentString)($scope);
+
+        $scope.infowindow = new google.maps.InfoWindow({
+          content: $scope.compiled[0]
+        });
+            
+            google.maps.event.addListener($scope.marker, 'click', function() {
+          $scope.infowindow.open($scope.map,$scope.marker);
+        });
+            
+          $ionicLoading.hide();
         }, function(error) {
           alert(error.message);
         });
