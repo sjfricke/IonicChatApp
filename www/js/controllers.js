@@ -120,8 +120,33 @@ $scope.posOptions = {timeout: 10000, enableHighAccuracy: true};
   $scope.chat = Chats.get($stateParams.chatId);
 })
 
-.controller('AccountCtrl', function($scope) {
-  $scope.settings = {
-    enableFriends: true
-  };
+.controller('AccountCtrl', function($scope, $firebaseArray) {
+    
+    
+  
+     // create a reference to the Firebase where we will store our data
+     var ref = new Firebase("https://frickefamily2.firebaseio.com/");
+ 
+     // this uses AngularFire to create the synchronized array
+     // We limit the results to 10
+     $scope.data = $firebaseArray(ref);
+    
+      // create a query for the most recent 25 messages on the server
+    var query = ref.orderByChild("timestamp").limitToLast(25);
+    
+    // the $firebaseArray service properly handles Firebase queries as well
+    $scope.messages = $firebaseArray(query);
+
+    
+    //Initialize message object
+    $scope.message = {};
+ 
+    //Add message to the firebase data
+    $scope.addMessage = function(message) {
+      $scope.messages.$add({content: message, user: "Spencer"});
+      //we reset the text input field to an empty string
+      $scope.message.theMessage = "";
+    };
+    
+  
 });

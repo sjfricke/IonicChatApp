@@ -1,9 +1,37 @@
-<ion-view view-title="Account">
-  <ion-content>
-    <ion-list>
-    <ion-toggle  ng-model="settings.enableFriends">
-        Enable Friends
-    </ion-toggle>
-    </ion-list>
-  </ion-content>
+<ion-view view-title="Fricke's To-Do">
+    <ion-header-bar class="bar-stable">
+        <h1 class="title">Fricke's To-Do</h1>
+    </ion-header-bar>
+    
+        <ion-content>
+        
+            
+            <form name="chatForm" ng-submit="addMessage(message.theMessage)">
+                    <label class="item item-input message-input">
+                        <!-- the input text field is bound to message.theMessage -->
+                        <input type="text" ng-model="message.theMessage" placeholder="Things to get done"
+                        />
+                    </label>
+                    <button class="button button-block button-positive" action="submit">
+                        Add
+                    </button>
+                </form>
+            
+                
+               <div class="spacer" style="height: 50px;"></div>
+       
+            <div class="row row-bottom">
+            <div class="col">
+              
+                   <div style="height: 300px">
+                          
+                    <ul>
+                          <li class="checkbox inline" ng-repeat="msg in messages">&bull;{{msg.content}}</li>
+                        <!-- We output the messages -->
+                        
+                    </ul>
+            </div>
+        </div>
+                </div>
+    </ion-content>
 </ion-view>
