@@ -1,4 +1,4 @@
-<ion-view view-title="Chats">
+<!--<ion-view view-title="Chats">
   <ion-content>
     <ion-list>
       <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="chat in chats" type="item-text-wrap" href="#/tab/chats/{{chat.id}}">
@@ -13,4 +13,33 @@
       </ion-item>
     </ion-list>
   </ion-content>
-</ion-view>
+</ion-view>-->
+ <ion-header-bar class="bar-stable">
+        <h1 class="title">My Anonymous Chat App</h1>
+    </ion-header-bar>
+    <ion-content>
+        <div class="row row-bottom">
+            <div class="col">
+              
+                   <div class="chatbox-container" style="height: 300px">
+                    <ion-content scroll="true">       
+                    <ul class="chatbox">
+                        <!-- We output the messages -->
+                        <li ng-repeat="msg in messages">{{msg.user}}: {{msg.content}}</li>
+                    </ul>
+                </ion-content>
+                </div> 
+        
+            <form name="chatForm" ng-submit="addMessage(message.theMessage)">
+                    <label class="item item-input message-input">
+                        <!-- the input text field is bound to message.theMessage -->
+                        <input type="text" ng-model="message.theMessage" placeholder="Type your message..."
+                        />
+                    </label>
+                    <button class="button button-block button-dark" action="submit">
+                        Send
+                    </button>
+                </form>
+            </div>
+        </div>
+    </ion-content>

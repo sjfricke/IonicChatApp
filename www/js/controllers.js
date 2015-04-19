@@ -47,7 +47,8 @@ angular.module('starter.controllers', [])
           content: 'Getting current location...',
           showBackdrop: false
         });
-
+$scope.posOptions = {timeout: 10000, enableHighAccuracy: true};
+        
         navigator.geolocation.getCurrentPosition(function(pos) {
             console.log(pos.coords.latitude);
             console.log(pos.coords.longitude);
@@ -76,7 +77,7 @@ angular.module('starter.controllers', [])
           $ionicLoading.hide();
         }, function(error) {
           alert(error.message);
-        });
+        }, $scope.posOptions);
     };
 
     $scope.clickTest = function() {
@@ -84,11 +85,35 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('ChatsCtrl', function($scope, Chats) {
-  $scope.chats = Chats.all();
-  $scope.remove = function(chat) {
-    Chats.remove(chat);
-  }
+.controller('ChatsCtrl', function($scope, $firebaseArray) {
+    
+    
+  
+     // create a reference to the Firebase where we will store our data
+     var ref = new Firebase("https://frickefamily.firebaseio.com/");
+ 
+     // this uses AngularFire to create the synchronized array
+     // We limit the results to 10
+     $scope.data = $firebaseArray(ref);
+    
+      // create a query for the most recent 25 messages on the server
+    var query = ref.orderByChild("timestamp").limitToLast(25);
+    
+    // the $firebaseArray service properly handles Firebase queries as well
+    $scope.messages = $firebaseArray(query);
+
+    
+    //Initialize message object
+    $scope.message = {};
+ 
+    //Add message to the firebase data
+    $scope.addMessage = function(message) {
+      $scope.messages.$add({content: message, user: "Spencer"});
+      //we reset the text input field to an empty string
+      $scope.message.theMessage = "";
+    };
+    
+  
 })
 
 .controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
