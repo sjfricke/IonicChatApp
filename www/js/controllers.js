@@ -94,7 +94,7 @@ $scope.posOptions = {timeout: 10000, enableHighAccuracy: true};
     
   
      // create a reference to the Firebase where we will store our data
-     var ref = new Firebase("https://frickefamily.firebaseio.com/");
+     var ref = new Firebase("FIREBASEURL");
  
      // this uses AngularFire to create the synchronized array
      // We limit the results to 10
@@ -125,7 +125,7 @@ $scope.posOptions = {timeout: 10000, enableHighAccuracy: true};
     
   
      // create a reference to the Firebase where we will store our data
-     var ref = new Firebase("https://frickefamily2.firebaseio.com/");
+     var ref = new Firebase("FIREBASEURL");
  
      // this uses AngularFire to create the synchronized array
      // We limit the results to 10
